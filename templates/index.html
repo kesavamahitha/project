@@ -1,0 +1,146 @@
+  <!DOCTYPE html>
+<html>
+        <head>
+                <title>Audio player</title>
+                <style>
+        /* Style for the heading (h1) */
+        body {
+            background-color: rgb(192, 192, 192);
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+	    font-family : cursive;
+            text-align: center;
+            margin-top: 20px;
+            color: #7600a1;
+        }
+
+        /* Style for the audio element */
+        audio {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 600px; /* Adjust the maximum width as needed */
+        }
+
+
+        /* Style for the "Shuffle" button */
+        #shuffle-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #7600a1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+         }
+
+        #shuffle-button:hover {
+            background-color: #400057; /* Darker shade of blue on hover */
+        }
+
+        #audio-title {
+            text-align: center;
+            font-size: 18px;
+            color: #7600a1;
+        }
+
+        .audio-container {
+            float: left;
+            margin-bottom: 16px;
+        }
+
+        
+	.audio-container .play-button {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px; /* Adjust margin between items as needed */
+        }
+
+	.play-button img {
+            width: 125px;
+	    height: 125px;
+	}
+
+	.song-name {
+            text-align: center;
+            font-size: 16px;
+            color: #7600a1; /* Adjust the color as needed */
+	    width:90px;
+        }
+
+    </style>
+        </head>
+        <body>
+                <h1>Audio Player</h1>
+                <div>
+                  <div>
+                   <script>
+                     const songNames = ["1","2","3", "4", "5", "6", "7","8", "9", "10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48"];
+                
+                    for (let i = 1; i < songNames.length + 1; i++) {
+                document.write(`
+                    <div class="audio-container">
+                        <div class="play-button">
+                            <img src="/static/image5.jpg" alt="Play" onclick="playAudio(${i})">
+                            <div class="song-name">${songNames[i - 1]}</div>
+                        </div>
+                    </div>
+                     `);
+                    }
+                   </script>
+                 </div>
+               </div>
+
+
+                <audio controls>
+                        <source id="audio-source" type="audio/mpeg">
+                        your browser does not support the audio element.
+                </audio>
+                <p id="audio-title">Now playing: -</p>
+                <button id="shuffle-button" onclick="shuffleAndPlay()">Shuffle</button>
+
+                <script>
+                        const audio = document.querySelector('audio');
+                        const audioSource = document.getElementById('audio-source');
+                        const audioTitle = document.getElementById('audio-title');
+                        const audioList = ["1.mp3","2.mp3","3.mp3","4.mp3","5.mp3","6.mp3","7.mp3","8.mp3","9.mp3","10.mp3","11.mp3","12.mp3","13.mp3","14.mp3","15.mp3","16.mp3","17.mp3","18.mp3","19.mp3","20.mp3","21.mp3","22.mp3","23.mp3","24.mp3","25.mp3","26.mp3","27.mp3","28.mp3","29.mp3","30.mp3","31.mp3","32.mp3","33.mp3","34.mp3","35.mp3","36.mp3","37.mp3","38.mp3","39.mp3","40.mp3","41.mp3","42.mp3","43.mp3","44.mp3","45.mp3","46.mp3","47.mp3","48.mp3"]
+                        let currentSongIndex = null;
+
+                        function playAudio(tracknumber) {
+ /*   if (currentSongIndex !== null) {
+    // Reset the previous song's image style (remove highlight)
+    const previousImage = document.getElementById(`songImages${currentSongIndex}`);
+    previousImage.style.border = "none"; // Remove the border
+    previousImage.src = previousImage.src + "?timestamp=" + new Date().getTime(); // Add timestamp to avoid caching
+}*/
+
+    const selectedAudio = audioList[tracknumber - 1];
+    audioSource.src = `/static/${selectedAudio}`;
+    audioTitle.innerText = `Now playing: ${songNames[tracknumber - 1]}`;
+    audio.load();
+    audio.play();
+    currentSongIndex = tracknumber - 1; // Update the current song index
+
+    // Highlight the currently playing song's image
+   /* const currentImage = document.getElementById(`songImages${currentSongIndex+1}`);
+    currentImage.style.border = "4px solid #7600a1"; // Add a border to indicate the current song
+*/
+			}
+
+function shuffleAndPlay() {
+    const randomIndex = Math.floor(Math.random() * audioList.length);
+    playAudio(randomIndex + 1);
+}
+
+                        audio.addEventListener('ended',shuffleAndPlay);
+
+                </script>
+        </body>
+</html>
