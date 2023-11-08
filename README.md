@@ -20,7 +20,7 @@ This is a web-based audio player with a Flask backend that allows you to play a 
 
 ```bash
 git clone
-https://github.com/yourusername/audio-player.git
+https://github.com/kesavamahitha/project.git
 ```
 2. Install the required packages
 ```bash
